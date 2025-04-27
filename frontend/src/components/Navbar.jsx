@@ -1,25 +1,46 @@
-import React from 'react'
+ import React from 'react'
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router';
+import { Button ,IconButton,Typography} from '@mui/material';
+import { useTheme } from '@emotion/react';
 import { MdOutlineAddBox } from "react-icons/md";
-import { LuMoon } from "react-icons/lu";
-import { Button,useTheme } from '@mui/material';
+import { FiSun } from "react-icons/fi";
+import {ColorModeContext} from "../App.jsx"
+
 
 
 const Navbar = () => {
-  const theme = useTheme()
-  const palette = theme.palette
+  const theme = useTheme();
+  const colorMode = React.useContext(ColorModeContext);
+  console.log(theme, colorMode)
   return (
-    <Box component="nav" sx={{display:'flex',alignItems:'center',justifyContent:'space-around'}}>
-      <Link to="/" style={{ textDecoration: 'none', color: 'inherit', marginLeft:'30px' }}>
-        <h1>Products</h1>
-      </Link> 
-      <Stack direction={"row"} spacing={1} sx={{ml:'auto',mr:2}}>
+    <Box component="nav" sx={{display:'flex',alignItems:'center',justifyContent:'space-between' }}    >
+
+
+      <Typography
+        variant="h4"
+        color="primary"
+        component={Link}
+        to="/"
+        sx={{
+          textDecoration: 'none',
+          marginLeft: '30px',
+          '&:hover': {
+            textDecoration: 'underline',
+          },
+        }}
+      >
+        Products
+      </Typography>
+
+      <Stack direction={"row"} spacing={1} >
         <Link to="/create">
-        <Button color='primary'><MdOutlineAddBox sx={{ fontSize: '25px',color:palette.primary.main }}/></Button>
+        <Button variant="outlined" size="large" > <MdOutlineAddBox /> </Button>
         </Link>
-        <Button><LuMoon sx={{ fontSize: '25px',color:palette.primary.main}}/></Button>
+          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} >
+            {theme.palette.mode === 'dark' ? <FiSun/> : <h1>hi</h1>}
+          </IconButton>
       </Stack>
     </Box>
   ) 
