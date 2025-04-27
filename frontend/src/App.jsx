@@ -3,18 +3,33 @@ import './App.css'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import CreatePage from './pages/CreatePage'
+import { ErrorBoundary } from "react-error-boundary";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 function App() {
-
+  
   return (
     <>
-     <Navbar/>
-     <Routes>
-      <Route path="/" element={<HomePage/>}/>
-      <Route path="/create" element={<CreatePage/>}/>
-
-     </Routes>
-
+    <ThemeProvider theme={theme}>
+      <ErrorBoundary fallback={<div>Something went wrong in navbar</div>}>
+        <Navbar/>
+      </ErrorBoundary>      
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/create" element={<CreatePage/>}/>
+      </Routes>
+     </ThemeProvider>
     </>
   
   )
